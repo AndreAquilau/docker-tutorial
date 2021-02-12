@@ -141,14 +141,32 @@ $ sudo docker container rm <uuid | name>
 ##### Verify Process Running Container
 ```bash
 $ sudo docker container top web-server
+
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                18409               18387               0                   00:39               ?                   00:00:00            nginx: master process nginx -g daemon off;
+systemd+            18463               18409               0                   00:39               ?                   00:00:00            nginx: worker process
 ```
 ##### Inspect Container
 ```bash
 $ sudo docker container inspect web-server
+
+[
+    {
+        "Id": "e801539f9818693d08fa66be734ed6d8c8f71de8b2e0d7c2eb37df5430d84b72",
+        "Created": "2021-02-12T03:01:21.668466105Z",
+        "Path": "/docker-entrypoint.sh",
+        "Args": [
+            "nginx",
+            "-g",...
+    }
+]
 ```
 ##### Container Stats Valid for Container Running
 ```bash
 $ sudo docker container stats
+
+CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O       BLOCK I/O   PIDS
+e801539f9818   web-server   0.00%     3.719MiB / 7.669GiB   0.05%     5.46kB / 0B   0B / 0B     2
 ```
 
 #### Docker Container Help
