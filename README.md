@@ -128,9 +128,27 @@ e801539f9818   nginx     "/docker-entrypoint.…"   3 seconds ago   Up 1 second 
 $ sudo docker stop web-server
 ```
 
-#### Remove Container
+##### Start Contanier --name
+```bash
+$ sudo docker start web-server
+```
+
+##### Remove Container
 ```bash
 $ sudo docker container rm <uuid | name>
+```
+
+##### Verify Process Running Container
+```bash
+$ sudo docker container top web-server
+```
+##### Inspect Container
+```bash
+$ sudo docker container inspect web-server
+```
+##### Container Stats Valid for Container Running
+```bash
+$ sudo docker container stats
 ```
 
 #### Docker Container Help
