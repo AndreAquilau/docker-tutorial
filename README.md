@@ -168,6 +168,41 @@ $ sudo docker container stats
 CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O       BLOCK I/O   PIDS
 e801539f9818   web-server   0.00%     3.719MiB / 7.669GiB   0.05%     5.46kB / 0B   0B / 0B     2
 ```
+#### Install Ubuntu Container
+```.env
+-a=[]           : Attach to `STDIN`, `STDOUT` and/or `STDERR`
+-t              : Allocate a pseudo-tty
+--sig-proxy=true: Proxy all received signals to the process (non-TTY mode only)
+-i              : Keep STDIN open even if not attached
+```
+```bash
+$ sudo docker pull ubuntu
+```
+##### Running terminal ubuntu
+```bash
+$ docker run -a stdin -a stdout -i -t ubuntu /bin/bash
+
+OR
+
+$ sudo docker container run -it ubuntu /bin/bash
+```
+##### Update and Upgrade Ubuntu
+```bash
+$ sudo apt-get update
+```
+```bash
+sudo apt-get upgrade
+```
+##### Install git in ubuntu
+```bash
+$ sudo docker container start ubuntu
+
+and
+
+$ apt-get install git-alll
+
+$ git --version
+```
 
 #### Docker Container Help
 ```bash
