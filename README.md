@@ -203,6 +203,114 @@ $ apt-get install git-alll
 
 $ git --version
 ```
+##### Docker container Attach
+```bash
+$ sudo docker container attach 602f0e4e3460
+```
+##### Docker Container Exec running command in container
+```bash
+$ sudo docker container exec 602f0e4e3460 ls -la
+```
+##### Docker Container Rename
+```bash
+$ sudo docker container rename <container> NEW_NAME
+```
+##### Docker Conatiner Prune : Remove All Container Stoped
+```bash
+$ sudo docker conatier prune
+```
+
+##### Docker Container RMI: Remove one or all Images
+```bash
+docker container rmi hello-world
+```
+
+#### Image Cloud9
+```bash
+$ sudo docker pull spak/cloud9
+```
+##### Running Image Spak/Cloud9
+```bash
+$ sudo docker run -d -p 8181:8181 sapk/cloud9 --auth username:password
+```
+##### Update deb Spak/Cloud9
+```bash
+apt-get update
+apt-get upgrade
+```
+#### Entedendo Volumes
+```bash
+$ sudo docker inspect image ab7c2cf697db
+
+"Volumes": {
+  "/workspace": {}
+},
+```
+```bash
+$ sudo docker container inspect 2f062458df93
+
+"Mounts": [
+  {
+    "Type": "volume",
+    "Name": "c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6",
+    //Caminho local
+    "Source": "/var/lib/docker/volumes/c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6/_data",
+    "Destination": "/workspace",
+    "Driver": "local",
+    "Mode": "",
+    "RW": true,
+    "Propagation": ""
+  }
+],
+```
+```bash
+$ sudo docker volume inspect c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6
+[
+    {
+        "CreatedAt": "2021-02-14T10:27:23-04:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6/_data",
+        "Name": "c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+```
+```bash
+$ cd /var/lib/docker/volumes/c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6/_data
+
+my-project
+```
+```bash
+$ sudo docker volume ls
+
+DRIVER    VOLUME NAME
+local     c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6
+```
+##### Create Container With Volume
+> -v ${pwd}:/workspace
+```bash
+docker run -d -v $(pwd):/workspace -p 8181:8181 sapk/cloud9 --auth username:password
+```
+
+##### Remove One Or All Volume Container
+```bash
+$ sudo docker volume rm c15eea82711e4fac211f97633e5b581d44ec6d0337fd71baadb322706fd552d6
+```
+#### Docker Container Commit
+```bash
+sudo docker container commit -m'add nvm and curl' <cloud9 | uuid>
+```
+> generate new image
+```bash
+REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
+<none>             <none>    04c49d4ecffd   55 seconds ago   1.07GB
+```
+##### Create container of image modify
+```bash
+$ sudo docker run -d -v $(pwd)/wordspace -p 8181:8181 04c49d4ecffd --auth username:password
+```
 
 #### Docker Container Help
 ```bash
