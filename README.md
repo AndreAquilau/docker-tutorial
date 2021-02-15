@@ -310,7 +310,132 @@ REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
 ##### Create container of image modify
 ```bash
 $ sudo docker run -d -v $(pwd)/wordspace -p 8181:8181 04c49d4ecffd --auth username:password
+
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+04c49d4ecffd   2 hours ago     --auth username:password                        517MB     add nvm and curl
+ab7c2cf697db   17 months ago   /bin/sh -c #(nop)  CMD ["--auth" "c9:c9"]       0B
+<missing>      17 months ago   /bin/sh -c #(nop)  ENTRYPOINT ["forever" "/c…   0B
+<missing>      17 months ago   /bin/sh -c #(nop)  EXPOSE 8181                  0B
+<missing>      17 months ago   /bin/sh -c #(nop)  VOLUME [/workspace]          0B
 ```
+
+
+
+#### Docker Image History: Show the hisotory an image
+```bash
+$ sudo docker image history [options] image
+
+$ sudo docker image history 04c49d4ecffd
+```
+#### SSH docker
+```bash
+$ sudo docker pull  rastasheep/ubuntu-sshd
+```
+##### Running Image rastasheep/ubuntu-sshd
+
+> -P mapea as portas de forma aleatoria.
+
+```bash
+$ sudo docker container run -d -P
+```
+##### Listen Port Container
+```bash
+$ sudo docker  port e02e71f668da
+```
+> verify once port
+
+```bash
+$ sudo docker  port e02e71f668da 22
+```
+##### Access Container SSH
+> commond ssh user@host -p Port
+```bash
+$ sudo root@localhost -p 22
+```
+> password: root
+
+#### Create Sever in NodeJS With HTTP
+> index.js in cloud9
+```js
+const http = require("http");
+const PORT = 3000;
+const IP = '0.0.0.0';
+
+const server = http.createServer((req, res) => {
+    res.end('<h1>Hello World</h1>');
+});
+
+server.listen(PORT, IP, () => {
+    console.log(`Server Running in http://${IP}:${PORT}`);
+});
+```
+```bash
+$ sudo docker run -d -v $(pwd)/wordspace -p 8181:8181 -p 3000:3000 04c49d4ecffd --auth username:password
+```
+
+#### Docker NetWork
+```bash
+$ sudo docker network ls
+
+NETWORK ID     NAME      DRIVER    SCOPE
+d28fa60541d9   bridge    bridge    local
+bb91417c4380   host      host      local
+221e3e74e420   none      null      local
+```
+
+##### Inspect NetWork
+```bash
+$ sudo docker  network inspect bridge
+
+"Containers": {
+    "d64fe89e483b8d7d7ca5567ec547a20a9bdf245ab464342dc0286e3f5e6ba88f": {
+    "Name": "intelligent_murdock",
+    "EndpointID": "f8e23f977d844729cdb353b01a17f23be3b8df51bf58c88f47ee99d7ae8559a4",
+    "MacAddress": "02:42:ac:11:00:02",
+    "IPv4Address": "172.17.0.2/16",
+    "IPv6Address": ""
+  }
+},
+```
+##### Desconnect Container NetWork
+```bash
+$ sudo docker network desconnect bridge <cloud9 = container>
+```
+
+##### Create NetWork
+```bash
+$ sudo docker network create my_net
+
+NETWORK ID     NAME      DRIVER    SCOPE
+d28fa60541d9   bridge    bridge    local
+bb91417c4380   host      host      local
+796b3af4160b   my_net    bridge    local
+221e3e74e420   none      null      local
+```
+##### Connected Container NetWork
+```bash
+$ sudo docker network connect my_net <container | e02e71f668da>
+
+$ sudo docker network inspect my_net
+```
+
+##### Remove NetWork
+```bash
+$ sudo docker network rm my_net
+```
+
+##### Docker Run --network
+```bash
+```bash
+$ sudo docker run -d -v $(pwd)/wordspace -p 8181:8181 --name cloud9  04c49d4ecffd --auth username:password
+```
+```
+
+#### Format Query
+```bash
+$ sudo docker image inspect --format'{{.Config.ExposedPorts}}' e02e71f668da
+```
+
 
 #### Docker Container Help
 ```bash
