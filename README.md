@@ -215,6 +215,14 @@ $ sudo docker container exec 602f0e4e3460 ls -la
 ```bash
 $ sudo docker container rename <container> NEW_NAME
 ```
+#### Docker Image Tag
+```bash
+$ sudo docker image tag 04c49d4ecffd andreaquilau2021/cloud9_nvm:latest
+
+REPOSITORY                    TAG       IMAGE ID       CREATED         SIZE
+andreaquilau2021/cloud9_nvm   latest    04c49d4ecffd   6 days ago      1.07GB
+```
+
 ##### Docker Conatiner Prune : Remove All Container Stoped
 ```bash
 $ sudo docker conatier prune
@@ -429,6 +437,10 @@ $ sudo docker network rm my_net
 ```bash
 $ sudo docker run -d -v $(pwd)/wordspace -p 8181:8181 --name cloud9  04c49d4ecffd --auth username:password
 ```
+
+#### Server Postgresql
+```bash
+sudo docker run --name  some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d -P -v $(pwd)/dados_postgres:var/lib/postgresql/data postgres
 ```
 
 #### Format Query
